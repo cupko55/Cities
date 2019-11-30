@@ -1,0 +1,25 @@
+<h1 id="tableLabel">Gradovi</h1>
+<a class="btn btn-primary" [routerLink]="['/city-create']">Dodaj novi grad</a>
+<p *ngIf="!cityList"><em>Učitavanje u tijeku...</em></p>
+<p *ngIf="cityList">Ukupan broj unesenih gradova: {{ cityList.count }}</p>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="cityList">
+  <thead>
+  <tr>
+    <th>Naziv</th>
+    <th>Država</th>
+    <th>Poštanski broj</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let city of cityList.cities">
+    <td>{{ city.name}}</td>
+    <td>{{ city.countryName}}</td>
+    <td>{{ city.zip}}</td>
+    <td>
+      <a class="btn btn-secondary" [routerLink]="['/city-edit', city.id]">Uredi</a>
+      <button type="button" class="btn btn-danger" (click)="deleteCity(city.id)">Obriši</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

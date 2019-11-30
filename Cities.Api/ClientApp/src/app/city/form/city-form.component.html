@@ -1,0 +1,41 @@
+<div class="card m-3">
+  <h5 class="card-header">{{ pageHeading }}</h5>
+  <div class="card-body">
+    <form *ngIf="(city | async) || mode===1; else loading" [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Država</label>
+          <select formControlName="countryId" class="form-control">
+            <option *ngFor="let country of countries" value="{{ country.id }}">{{ country.name }}</option>
+          </select>
+          <div *ngIf="submitted && f.countryId.errors" class="text-danger">
+            <div *ngIf="f.countryId.errors.required">Država je obavezna</div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Ime grada</label>
+          <input type="text" formControlName="name" class="form-control" />
+          <div *ngIf="submitted && f.name.errors" class="text-danger">
+            <div *ngIf="f.name.errors.required">Ime je obavezno</div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Poštanski broj</label>
+          <input type="text" formControlName="zip" class="form-control" />
+          <div *ngIf="submitted && f.zip.errors" class="text-danger">
+            <div *ngIf="f.zip.errors.required">Poštanski broj je obavezan</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary mr-1">Spremi</button>
+        <a class="btn btn-secondary" [routerLink]="['/city-index']">Odustani</a>
+      </div>
+    </form>
+
+    <ng-template #loading>
+      Učitavanje podataka...
+    </ng-template>
+
+  </div>
+</div>
